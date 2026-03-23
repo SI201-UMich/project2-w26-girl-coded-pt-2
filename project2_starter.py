@@ -1,6 +1,6 @@
 # SI 201 HW4 (Library Checkout System)
-# Your name:
-# Your student id:
+# Your name: Kikii Park
+# Your student id: 36180469
 # Your email:
 # Who or what you worked with on this homework (including generative AI like ChatGPT):
 # If you worked with generative AI also add a statement for how you used it.
@@ -41,7 +41,32 @@ def load_listing_results(html_path) -> list[tuple]:
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
-    pass
+
+    with open(html_path, "r", encoding="utf-8-sig") as f:
+        soup = BeautifulSoup(f, "html.parser")
+
+    results = []
+
+    # find all listing cards by their title div
+    title_divs = soup.find_all("div", attrs={"data-testid": "listing-card-title"})
+
+    for div in title_divs:
+        title = div.get_text(strip=True)
+
+        # id looks like "title_1944564"
+        div_id = div.get("id", "")
+        match = re.search(r"title_(\d+)", div_id)
+
+        if match:
+            listing_id = match.group(1)
+            results.append((title, listing_id))
+
+    return results
+
+
+
+
+
     # ==============================
     # YOUR CODE ENDS HERE
     # ==============================
@@ -195,7 +220,9 @@ class TestCases(unittest.TestCase):
     def test_load_listing_results(self):
         # TODO: Check that the number of listings extracted is 18.
         # TODO: Check that the FIRST (title, id) tuple is  ("Loft in Mission District", "1944564").
-        pass
+
+
+
 
     def test_get_listing_details(self):
         html_list = ["467507", "1550913", "1944564", "4614763", "6092596"]

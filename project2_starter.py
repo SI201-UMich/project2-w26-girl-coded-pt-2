@@ -53,7 +53,7 @@ def load_listing_results(html_path) -> list[tuple]:
     for div in title_divs:
         title = div.get_text(strip=True)
 
-        # id looks like "title_1944564"
+        # id looks like "title_1944564", so only get the numbers
         div_id = div.get("id", "")
         match = re.search(r"title_(\d+)", div_id)
 
@@ -221,7 +221,9 @@ class TestCases(unittest.TestCase):
         # TODO: Check that the number of listings extracted is 18.
         # TODO: Check that the FIRST (title, id) tuple is  ("Loft in Mission District", "1944564").
 
-
+        self.assertEqual(len(self.listings),18)
+        self.assertEqual(self.listings[0],("Loft in Mission District", "1944564"))
+        #print(self.listings)
 
 
     def test_get_listing_details(self):

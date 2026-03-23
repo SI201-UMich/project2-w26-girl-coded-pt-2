@@ -332,11 +332,6 @@ class TestCases(unittest.TestCase):
             detail_dict = get_listing_details(id)
             my_list.append(detail_dict)
 
-        #print(my_list)
-        
-        #print(get_listing_details("23672181"))
-        #print(get_listing_details("16204265"))
-        #print(get_listing_details("11225011"))
 
 
         # TODO: Spot-check a few known values by opening the corresponding listing_<id>.html files.

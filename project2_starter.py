@@ -144,22 +144,18 @@ def get_listing_details(listing_id) -> dict:
 
 
 
-    # 4. room_type 
+    # 4. room_type (from<h2>)
 
     room_type = "Entire Room"  
-    subtitle_text = ""
-    h1_tag = soup.find("h1", attrs={"elementtiming": "LCP-target"})
-    if h1_tag:
-        next_div = h1_tag.find_next("div")
-        if next_div:
-            subtitle_text = next_div.get_text(" ", strip=True)
-    if not subtitle_text:
-        subtitle_text = page_text  
-    
-    if "Private" in subtitle_text:
-        room_type = "Private Room"
-    elif "Shared" in subtitle_text:
-        room_type = "Shared Room"
+    host_h2 = soup.find("h2", attrs={"elementtiming": "LCP-target"})
+    if host_h2:
+        # Normalize whitespace to remove \xa0 and extra spaces
+        clean_text = " ".join(host_h2.get_text().split())
+
+        if "Private" in clean_text:
+            room_type = "Private Room"
+        elif "Shared" in clean_text:
+            room_type = "Shared Room"
     
 
     
@@ -336,7 +332,11 @@ class TestCases(unittest.TestCase):
             detail_dict = get_listing_details(id)
             my_list.append(detail_dict)
 
-        print (my_list)
+        #print(my_list)
+        
+        #print(get_listing_details("23672181"))
+        #print(get_listing_details("16204265"))
+        #print(get_listing_details("11225011"))
 
 
         # TODO: Spot-check a few known values by opening the corresponding listing_<id>.html files.

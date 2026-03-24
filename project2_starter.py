@@ -51,7 +51,7 @@ def load_listing_results(html_path) -> list[tuple]:
     title_divs = soup.find_all("div", attrs={"data-testid": "listing-card-title"})
 
     for div in title_divs:
-        title = div.get_text(strip=True)
+        title = div.get_text()
 
         # id looks like "title_1944564", so only get the numbers
         div_id = div.get("id", "")
@@ -126,7 +126,7 @@ def get_listing_details(listing_id) -> dict:
 
     host_span = soup.find("span", class_="_1mhorg9", attrs={"aria-hidden": "false"})
     if host_span:
-        if "Superhost" in host_span.get_text(strip=True):
+        if "Superhost" in host_span.get_text():
             host_type = "Superhost"
 
 
@@ -138,7 +138,7 @@ def get_listing_details(listing_id) -> dict:
     if host_h2:
         # Normalize whitespace to remove \xa0 and extra spaces
         clean_text = " ".join(host_h2.get_text().split())
-        match = re.search(r"hosted by\s+(.+)$", clean_text, re.IGNORECASE)
+        match = re.search(r"hosted by\s+(.+)$", clean_text)
         if match:
             host_name = match.group(1).strip()
 

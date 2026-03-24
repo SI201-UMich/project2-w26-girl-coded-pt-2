@@ -213,19 +213,23 @@ def create_listing_database(html_path) -> list[tuple]:
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
-    listing_results = load_listing_results(html_path)
-    listing_details = get_listing_details(html_path)
+
     listing_database = []
 
-    for listing in listing_details:
-        listing_tuple = (listing['policy_number'], listing['host_type'], listing['host_name'], listing['room_type'], listing['location_rating'])
-        for list in listing_results:
-            if list[1] == listing:
-                listing_tuple += list
-                listing_database.append(listing_tuple)
+    listing_results = load_listing_results(html_path)
+
+    for listing in listing_results:
+        listing_info = get_listing_details(listing[1])
+        # print(listing_info)
+        for value in listing_info.values():
+            listing_tuple = (value['policy_number'], value['host_type'], value['host_name'], value['room_type'], value['location_rating'])
+            listing += listing_tuple
+            listing_database.append(listing)
+        
     
-    print(listing_database)
+    # print(listing_database)
     return listing_database
+    # pass
 
 
     # ==============================
@@ -345,7 +349,7 @@ class TestCases(unittest.TestCase):
         for id in html_list:
             detail_dict = get_listing_details(id)
             my_list.append(detail_dict)
-        print(detail_dict)
+        # print(detail_dict)
 
 
 
@@ -366,12 +370,12 @@ class TestCases(unittest.TestCase):
     def test_create_listing_database(self):
         # TODO: Check that each tuple in detailed_data has exactly 7 elements:
         # (listing_title, listing_id, policy_number, host_type, host_name, room_type, location_rating)
-        # for result in self.detailed_data:
-        #     self.assertEqual(len(result), 7)
+        for result in self.detailed_data:
+            self.assertEqual(len(result), 7)
 
         # TODO: Spot-check the LAST tuple is ("Guest suite in Mission District", "467507", "STR-0005349", "Superhost", "Jennifer", "Entire Room", 4.8).
-        # self.assertEqual(self.detailed_data[-1], ("Guest suite in Mission District", "467507", "STR-0005349", "Superhost", "Jennifer", "Entire Room", 4.8))
-        pass
+        self.assertEqual(self.detailed_data[-1], ("Guest suite in Mission District", "467507", "STR-0005349", "Superhost", "Jennifer", "Entire Room", 4.8))
+        
 
     def test_output_csv(self):
         out_path = os.path.join(self.base_dir, "test.csv")

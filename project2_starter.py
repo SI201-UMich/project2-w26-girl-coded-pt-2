@@ -366,8 +366,11 @@ class TestCases(unittest.TestCase):
     def test_create_listing_database(self):
         # TODO: Check that each tuple in detailed_data has exactly 7 elements:
         # (listing_title, listing_id, policy_number, host_type, host_name, room_type, location_rating)
+        # for result in self.detailed_data:
+        #     self.assertEqual(len(result), 7)
 
         # TODO: Spot-check the LAST tuple is ("Guest suite in Mission District", "467507", "STR-0005349", "Superhost", "Jennifer", "Entire Room", 4.8).
+        # self.assertEqual(self.detailed_data[-1], ("Guest suite in Mission District", "467507", "STR-0005349", "Superhost", "Jennifer", "Entire Room", 4.8))
         pass
 
     def test_output_csv(self):
@@ -391,10 +394,10 @@ class TestCases(unittest.TestCase):
 
 
 def main():
-    detailed_data = create_listing_database(os.path.join("html_files", "search_results.html"))
+    # detailed_data = create_listing_database(os.path.join("html_files", "search_results.html"))
     # output_csv(detailed_data, "airbnb_dataset.csv")
-
+    pass
 
 if __name__ == "__main__":
-    main()
+    # main()
     unittest.main(verbosity=2)

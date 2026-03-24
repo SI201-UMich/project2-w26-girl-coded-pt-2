@@ -1,7 +1,7 @@
 # SI 201 HW4 (Library Checkout System)
-# Your name: Kikii Park
-# Your student id: 36180469
-# Your email:
+# Your name: Kikii Park, Anna Browne
+# Your student id: 36180469, 56505997
+# Your email: parkpark@umich.edu, aobrowne@umich.edu
 # Who or what you worked with on this homework (including generative AI like ChatGPT):
 # If you worked with generative AI also add a statement for how you used it.
 # e.g.:
@@ -213,7 +213,21 @@ def create_listing_database(html_path) -> list[tuple]:
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
-    pass
+    listing_results = load_listing_results(html_path)
+    listing_details = get_listing_details(html_path)
+    listing_database = []
+
+    for listing in listing_details:
+        listing_tuple = (listing['policy_number'], listing['host_type'], listing['host_name'], listing['room_type'], listing['location_rating'])
+        for list in listing_results:
+            if list[1] == listing:
+                listing_tuple += list
+                listing_database.append(listing_tuple)
+    
+    print(listing_database)
+    return listing_database
+
+
     # ==============================
     # YOUR CODE ENDS HERE
     # ==============================
@@ -320,7 +334,7 @@ class TestCases(unittest.TestCase):
 
         self.assertEqual(len(self.listings),18)
         self.assertEqual(self.listings[0],("Loft in Mission District", "1944564"))
-        #print(self.listings)
+        # print(self.listings)
 
 
     def test_get_listing_details(self):
@@ -331,6 +345,7 @@ class TestCases(unittest.TestCase):
         for id in html_list:
             detail_dict = get_listing_details(id)
             my_list.append(detail_dict)
+        print(detail_dict)
 
 
 
@@ -361,8 +376,8 @@ class TestCases(unittest.TestCase):
         # TODO: Call output_csv() to write the detailed_data to a CSV file.
         # TODO: Read the CSV back in and store rows in a list.
         # TODO: Check that the first data row matches ["Guesthouse in San Francisco", "49591060", "STR-0000253", "Superhost", "Ingrid", "Entire Room", "5.0"].
-
-        os.remove(out_path)
+        pass
+        # os.remove(out_path)
 
     def test_avg_location_rating_by_room_type(self):
         # TODO: Call avg_location_rating_by_room_type() and save the output.
@@ -377,7 +392,7 @@ class TestCases(unittest.TestCase):
 
 def main():
     detailed_data = create_listing_database(os.path.join("html_files", "search_results.html"))
-    output_csv(detailed_data, "airbnb_dataset.csv")
+    # output_csv(detailed_data, "airbnb_dataset.csv")
 
 
 if __name__ == "__main__":

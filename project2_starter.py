@@ -254,7 +254,15 @@ def output_csv(data, filename) -> None:
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
-    pass
+    
+    outfile = open(filename, 'w')
+    csvOut = csv.writer(outfile)
+    csvOut.writerow("Listings Title", "Listing ID", "Policy Number", "Host Type", "Host Name", "Room Type", "Location Rating")
+    sorted_data = sorted(data, key=lambda x: (-x[6]))
+    for data in sorted_data:
+        csvOut.writerow(data)
+    csvOut.close()
+
     # ==============================
     # YOUR CODE ENDS HERE
     # ==============================

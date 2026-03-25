@@ -255,13 +255,12 @@ def output_csv(data, filename) -> None:
     # YOUR CODE STARTS HERE
     # ==============================
     
-    outfile = open(filename, 'w')
-    csvOut = csv.writer(outfile)
-    csvOut.writerow("Listings Title", "Listing ID", "Policy Number", "Host Type", "Host Name", "Room Type", "Location Rating")
-    sorted_data = sorted(data, key=lambda x: (-x[6]))
-    for data in sorted_data:
-        csvOut.writerow(data)
-    csvOut.close()
+    with open(filename, 'w') as outfile:
+        csvOut = csv.writer(outfile)
+        csvOut.writerow(["Listings Title", "Listing ID", "Policy Number", "Host Type", "Host Name", "Room Type", "Location Rating"])
+        sorted_data = sorted(data, key=lambda x: (-x[6]))
+        for data in sorted_data:
+            csvOut.writerow(data)
 
     # ==============================
     # YOUR CODE ENDS HERE
@@ -391,8 +390,18 @@ class TestCases(unittest.TestCase):
         # TODO: Call output_csv() to write the detailed_data to a CSV file.
         # TODO: Read the CSV back in and store rows in a list.
         # TODO: Check that the first data row matches ["Guesthouse in San Francisco", "49591060", "STR-0000253", "Superhost", "Ingrid", "Entire Room", "5.0"].
-        pass
-        # os.remove(out_path)
+        output_csv(self.detailed_data, "test.csv")
+        with open("test.csv", "r") as f:
+            header = f.readline()
+            rows = f.readlines()
+        # print(rows)
+        data = []
+        for row in rows:
+            data.append(row.strip().split(','))
+        # print(data)
+        self.assertEqual(data[0], ["Guesthouse in San Francisco", "49591060", "STR-0000253", "Superhost", "Ingrid", "Entire Room", "5.0"])
+        os.remove(out_path)
+
 
     def test_avg_location_rating_by_room_type(self):
         # TODO: Call avg_location_rating_by_room_type() and save the output.

@@ -1,7 +1,7 @@
 # SI 201 HW4 (Library Checkout System)
-# Your name: Kikii Park, Anna Browne
-# Your student id: 36180469, 56505997
-# Your email: parkpark@umich.edu, aobrowne@umich.edu
+# Your name: Kikii Park, Anna Browne, Cynthia Cao
+# Your student id: 36180469, 56505997, 48363225
+# Your email: parkpark@umich.edu, aobrowne@umich.edu, cynthcao@umich.edu
 # Who or what you worked with on this homework (including generative AI like ChatGPT):
 # If you worked with generative AI also add a statement for how you used it.
 # e.g.:
@@ -284,7 +284,26 @@ def avg_location_rating_by_room_type(data) -> dict:
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
-    pass
+    totals = {}
+    counts = {}
+    for row in data:
+        room_type = row[5]
+        rating = row[6]
+
+        if rating == 0.0:
+            continue
+        if room_type not in totals:
+            totals[room_type] = 0
+            counts[room_type] = 0
+        totals[room_type] += rating
+        counts[room_type] += 1
+    
+    averages = {}
+    for room_type in totals:
+        averages[room_type] = totals[room_type] / counts[room_type]
+
+    return averages
+    # pass
     # ==============================
     # YOUR CODE ENDS HERE
     # ==============================

@@ -436,12 +436,18 @@ class TestCases(unittest.TestCase):
     def test_avg_location_rating_by_room_type(self):
         # TODO: Call avg_location_rating_by_room_type() and save the output.
         # TODO: Check that the average for "Private Room" is 4.9.
-        pass
+        result = avg_location_rating_by_room_type(self.detailed_data)
+        self.assertIn("Private Room", result)
+        self.assertAlmostEqual(result["Private Room"], 4.9, places=1)
+        # pass
 
     def test_validate_policy_numbers(self):
         # TODO: Call validate_policy_numbers() on detailed_data and save the result into a variable invalid_listings.
         # TODO: Check that the list contains exactly "16204265" for this dataset.
-        pass
+        invalid_listings = validate_policy_numbers(self.detailed_data)
+        self.assertEqual(len(invalid_listings), 1)
+        self.assertEqual(invalid_listings[0], "16204265")
+        # pass
 
 
 def main():

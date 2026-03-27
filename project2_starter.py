@@ -256,7 +256,7 @@ def output_csv(data, filename) -> None:
     # YOUR CODE STARTS HERE
     # ==============================
     
-    with open(filename, 'w') as outfile:
+    with open(filename, 'w', encoding='utf-8', newline='') as outfile:
         csvOut = csv.writer(outfile)
         csvOut.writerow(["Listings Title", "Listing ID", "Policy Number", "Host Type", "Host Name", "Room Type", "Location Rating"])
         sorted_data = sorted(data, key=lambda x: (-x[6]))

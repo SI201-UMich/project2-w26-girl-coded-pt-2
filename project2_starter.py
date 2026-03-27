@@ -96,7 +96,8 @@ def get_listing_details(listing_id) -> dict:
     # YOUR CODE STARTS HERE
     # ==============================
     base_dir = os.path.dirname(__file__)
-    html_path = os.path.join("html_files", f"listing_{listing_id}.html")
+    html_path = os.path.join(base_dir, "html_files", f"listing_{listing_id}.html")
+    # html_path = os.path.join("html_files", f"listing_{listing_id}.html")
     
     with open(html_path, "r", encoding="utf-8-sig") as f:
         soup = BeautifulSoup(f, "html.parser")

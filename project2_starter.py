@@ -2,13 +2,10 @@
 # Your name: Kikii Park, Anna Browne, Cynthia Cao
 # Your student id: 36180469, 56505997, 48363225
 # Your email: parkpark@umich.edu, aobrowne@umich.edu, cynthcao@umich.edu
-# Who or what you worked with on this homework (including generative AI like ChatGPT):
-# If you worked with generative AI also add a statement for how you used it.
-# e.g.:
-# Asked ChatGPT for hints on debugging and for suggestions on overall code structure
-#
+# Who or what you worked with on this homework (including generative AI like ChatGPT): ChatGPT
+# If you worked with generative AI also add a statement for how you used it: Asked for ChatGPT to explain and give examples of using csv.writer
 # Did your use of GenAI on this assignment align with your goals and guidelines in your Gen AI contract? If not, why?
-#
+# Yes, I only used GenAI to help me better understand concepts; I did not use it to write code for me.
 # --- ARGUMENTS & EXPECTED RETURN VALUES PROVIDED --- #
 # --- SEE INSTRUCTIONS FOR FULL DETAILS ON METHOD IMPLEMENTATION --- #
 

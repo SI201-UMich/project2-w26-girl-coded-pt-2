@@ -422,7 +422,7 @@ class TestCases(unittest.TestCase):
         # TODO: Read the CSV back in and store rows in a list.
         # TODO: Check that the first data row matches ["Guesthouse in San Francisco", "49591060", "STR-0000253", "Superhost", "Ingrid", "Entire Room", "5.0"].
         output_csv(self.detailed_data, "test.csv")
-        with open("test.csv", "r") as f:
+        with open("test.csv", "r", encoding="utf-8-sig") as f:
             header = f.readline()
             rows = f.readlines()
         # print(rows)

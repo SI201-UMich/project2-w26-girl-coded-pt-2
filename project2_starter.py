@@ -356,7 +356,22 @@ def google_scholar_searcher(query):
     # ==============================
     # YOUR CODE STARTS HERE
     # ==============================
+
+    url = "https://scholar.google.com/scholar"
+    params = {"q": query}
     
+    response = requests.get(url, params=params)
+    soup = BeautifulSoup(response.text, "html.parser")
+    
+    titles = []
+    title_tags = soup.find_all("h3", class_="gs_rt")
+    
+    for tag in title_tags:
+        a_tag = tag.find("a")
+        if a_tag:
+            titles.append(a_tag.text)
+    
+    return titles
 
 
 
@@ -382,7 +397,7 @@ class TestCases(unittest.TestCase):
         self.assertEqual(len(self.listings),18)
         self.assertEqual(self.listings[0],("Loft in Mission District", "1944564"))
         # print(self.listings)
-
+        
 
     def test_get_listing_details(self):
         html_list = ["467507", "1550913", "1944564", "4614763", "6092596"]
@@ -407,6 +422,7 @@ class TestCases(unittest.TestCase):
         self.assertEqual(my_list[2]["1944564"]["room_type"],"Entire Room")
 
         self.assertEqual(my_list[2]["1944564"]["location_rating"],4.9)
+
         
         
 
@@ -455,6 +471,7 @@ class TestCases(unittest.TestCase):
         self.assertEqual(invalid_listings[0], "16204265")
         # pass
 
+    
 
 def main():
     # detailed_data = create_listing_database(os.path.join("html_files", "search_results.html"))
@@ -464,3 +481,4 @@ def main():
 if __name__ == "__main__":
     # main()
     unittest.main(verbosity=2)
+    
